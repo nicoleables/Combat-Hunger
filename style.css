@@ -1,0 +1,401 @@
+
+/* COMBAT HUNGER - Website Styles */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f8f5f2;
+  color: #3e3332;
+}
+
+/* Navigation bar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 20px;
+  background-color: #3e3332;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 8px 4px;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #ed493a;
+}
+
+/* Main logo banner */
+.banner {
+  width: 100%;
+  background-color: #3e3332;
+  text-align: center;
+}
+
+.banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+/* About Us content */
+.about-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 55px 30px;
+  line-height: 1.8;
+}
+
+.about-content h1 {
+  color: #d83b30;
+  font-size: 36px;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.about-content p {
+  font-size: 17px;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+  .navbar {
+    gap: 24px;
+    padding: 16px 10px;
+  }
+
+  .nav-link {
+    font-size: 15px;
+  }
+
+  .about-content {
+    padding: 35px 20px;
+  }
+
+  .about-content h1 {
+    font-size: 30px;
+  }
+}
+
+/* Section headings */
+.about-content h2 {
+  color: #3e3332;
+  font-size: 25px;
+  margin-top: 35px;
+  margin-bottom: 12px;
+}
+
+/* Bible verse */
+.about-content blockquote {
+  margin: 40px 0 10px;
+  padding: 20px 25px;
+  border-left: 5px solid #d83b30;
+  background-color: #ffffff;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.about-content cite {
+  display: block;
+  margin-top: 10px;
+  color: #d83b30;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: bold;
+}
+
+
+/* Footer */
+.site-footer {
+  background-color: #3e3332;
+  color: #ffffff;
+  text-align: center;
+  padding: 35px 20px;
+  line-height: 1.7;
+}
+
+.site-footer h2 {
+  color: #ed493a;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.site-footer p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.site-footer a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.site-footer a:hover {
+  color: #ed493a;
+}
+
+.site-footer .tax-info {
+  margin-top: 22px;
+  font-size: 13px;
+}
+
+.site-footer .copyright {
+  margin-top: 18px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+
+/* Events page */
+.events-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 55px 30px;
+  text-align: center;
+}
+
+.events-content > h1 {
+  color: #d83b30;
+  font-size: 36px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.event-card {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 45px 30px;
+  background-color: #ffffff;
+  border: 2px solid #3e3332;
+  box-shadow: 0 5px 18px rgba(62, 51, 50, 0.12);
+}
+
+.event-label {
+  color: #d83b30;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin: 0 0 12px;
+}
+
+.event-date {
+  color: #3e3332;
+  font-size: 58px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.event-day {
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+
+.event-card h2 {
+  color: #d83b30;
+  font-size: 42px;
+  margin: 15px 0;
+}
+
+.event-presenter {
+  color: #3e3332;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.event-description {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 25px auto;
+}
+
+.event-underwriting {
+  font-weight: bold;
+  color: #3e3332;
+  margin: 25px 0;
+}
+
+.event-details {
+  font-style: italic;
+  color: #6d5c59;
+  margin-bottom: 30px;
+}
+
+.donate-button {
+  display: inline-block;
+  background-color: #d83b30;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 14px 22px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.donate-button:hover {
+  background-color: #3e3332;
+}
+
+/* Events page on smaller screens */
+@media (max-width: 600px) {
+  .events-content {
+    padding: 35px 18px;
+  }
+
+  .event-card {
+    padding: 30px 18px;
+  }
+
+  .event-date {
+    font-size: 44px;
+  }
+
+  .event-card h2 {
+    font-size: 32px;
+  }
+
+  .event-description {
+    font-size: 17px;
+  }
+}
+
+
+/* Donate page */
+.donate-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 55px 30px;
+  line-height: 1.8;
+}
+
+.donate-content h1 {
+  color: #d83b30;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.donate-content > p {
+  font-size: 17px;
+}
+
+.donate-intro {
+  font-size: 21px !important;
+  text-align: center;
+  color: #3e3332;
+}
+
+.donation-options {
+  margin-top: 40px;
+  padding: 35px 25px;
+  background-color: #ffffff;
+  border: 2px solid #3e3332;
+  text-align: center;
+}
+
+.donation-options h2 {
+  color: #d83b30;
+  font-size: 28px;
+  margin-top: 0;
+}
+
+.donation-amounts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.amount-button {
+  min-width: 110px;
+  padding: 13px 18px;
+  background-color: #3e3332;
+  color: #ffffff;
+  border: 2px solid #3e3332;
+  border-radius: 4px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.amount-button:hover,
+.amount-button.selected {
+  background-color: #d83b30;
+  border-color: #d83b30;
+}
+
+#donation-message {
+  font-weight: bold;
+  color: #3e3332;
+}
+
+.payment-note {
+  margin-top: 25px;
+  font-size: 14px !important;
+  color: #6d5c59;
+}
+
+@media (max-width: 600px) {
+  .donate-content {
+    padding: 35px 20px;
+  }
+
+  .donate-content h1 {
+    font-size: 30px;
+  }
+
+  .donation-options {
+    padding: 25px 15px;
+  }
+
+  .amount-button {
+    flex: 1 1 40%;
+  }
+}
+
+/* Social media links */
+.social-links {
+  text-align: center;
+  margin: 25px auto;
+  padding: 15px;
+  color: #b22222;
+  border-radius: 8px;
+}
+
+.social-links p {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.social-links a {
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 16px;
+  color: #ffffff;
+  background-color: #3b302c;
+  border: 1px solid #b22222;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.social-links a:hover {
+  background-color: #b22222;
+}
