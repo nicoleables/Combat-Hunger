@@ -399,3 +399,37 @@ body {
 .social-links a:hover {
   background-color: #b22222;
 }
+
+/* Donate page banner only */
+.donate-banner img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Steer Challenge logo - Donate page only */
+.steer-challenge-logo {
+  display: block;
+  width: 220px;
+  max-width: 80%;
+  height: auto;
+  margin: 20px auto;
+}
+
+/* Donate page section alignment */
+.donate-content .mail-donation,
+.donate-content .steer-challenge {
+  text-align: center;
+  margin: 40px auto;
+}
+
+.donate-content .mailing-address {
+  text-align: center;
+  line-height: 1.8;
+}
+
+.donate-content .steer-challenge-logo {
+  margin: 20px auto;
+}

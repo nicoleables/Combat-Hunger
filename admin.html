@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management | COMBAT HUNGER</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .admin-container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 25px;
+    }
+
+    .admin-container h1,
+    .admin-container h2 {
+      text-align: center;
+    }
+
+    .admin-panel {
+      background: #fff;
+      color: #333;
+      padding: 25px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .admin-panel input,
+    .admin-panel textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 18px;
+      box-sizing: border-box;
+      font: inherit;
+    }
+
+    .admin-panel label {
+      font-weight: bold;
+    }
+
+    .admin-panel button {
+      padding: 12px 20px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    .admin-event {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+    }
+
+    #admin-dashboard {
+      display: none;
+    }
+
+    #admin-message {
+      text-align: center;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="nav-link">About Us</a>
+      <a href="events.html" class="nav-link">Events</a>
+      <a href="donate.html" class="nav-link">Donate</a>
+    </nav>
+
+    <div class="banner">
+      <img
+        src="combat-hunger-banner.png"
+        alt="COMBAT HUNGER — Feeding Hope"
+      >
+    </div>
+  </header>
+
+  <main class="admin-container">
+
+    <h1>Event Management</h1>
+    <p style="text-align:center;">
+      COMBAT HUNGER Administration
+    </p>
+
+    <p id="admin-message"></p>
+
+    <!-- LOGIN -->
+    <section id="admin-login" class="admin-panel">
+      <h2>Admin Login</h2>
+
+      <form id="login-form">
+        <label for="admin-email">Email</label>
+        <input
+          type="email"
+          id="admin-email"
+          placeholder="Enter your email"
+          required
+        >
+
+        <label for="admin-password">Password</label>
+        <input
+          type="password"
+          id="admin-password"
+          placeholder="Enter your password"
+          required
+        >
+
+        <button type="submit">Log In</button>
+      </form>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="admin-dashboard">
+
+      <div class="admin-panel">
+        <h2 id="form-heading">Add a New Event</h2>
+
+        <form id="event-form">
+
+          <input type="hidden" id="event-id">
+
+          <label for="event-title">Event Name</label>
+          <input type="text" id="event-title" required>
+
+          <label for="event-date">Event Date</label>
+          <input type="date" id="event-date">
+
+          <label for="event-time">Event Time</label>
+          <input type="text" id="event-time">
+
+          <label for="event-location">Location</label>
+          <input type="text" id="event-location">
+
+          <label for="event-description">Event Description</label>
+          <textarea id="event-description" rows="5"></textarea>
+
+          <label for="event-image">Event Photo</label>
+          <input type="file" id="event-image" accept="image/*">
+
+          <label for="event-registration">Registration Link (optional)</label>
+          <input type="url" id="event-registration">
+
+          <label>
+            <input type="checkbox" id="event-published" checked>
+            Publish this event on the website
+          </label>
+
+          <button type="submit" id="save-event-button">
+            Save Event
+          </button>
+
+          <button type="button" id="cancel-edit" style="display:none;">
+            Cancel
+          </button>
+
+        </form>
+      </div>
+
+      <div class="admin-panel">
+        <h2>Manage Events</h2>
+        <div id="admin-events-list">
+          Loading events...
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <button type="button" id="logout-button">
+          Log Out
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <h2>COMBAT HUNGER</h2>
+    <p>To serve those who have served our nation.</p>
+    <p class="copyright">
+      © 2026 COMBAT HUNGER. All rights reserved.
+    </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="admin.js"></script>
+
+</body>
+</html>
