@@ -32,7 +32,7 @@ amountButtons.forEach((button) => {
 // ===================================
 
 // Replace these two values with your own Supabase information.
-const SUPABASE_URL = "https://kvtwgwvycxsffysnwtqa.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://kvtwgwvycxsffysnwtqa.supabase.co";
 const SUPABASE_KEY = "sb_publishable_fqv4Vy8q_iLpbwfIY34nqg_FsRof_LJ";
 
 
