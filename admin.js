@@ -1,4 +1,3 @@
-
 // ===================================
 // SUPABASE CONNECTION
 // ===================================
@@ -19,10 +18,17 @@ const ADMIN_EMAIL = "combathungr@gmail.com";
 
 const loginSection = document.querySelector("#admin-login");
 const dashboardSection = document.querySelector("#admin-dashboard");
+const resetSection = document.querySelector("#reset-password-section");
+
 const loginForm = document.querySelector("#login-form");
+const resetPasswordForm = document.querySelector("#reset-password-form");
 const eventForm = document.querySelector("#event-form");
+
 const message = document.querySelector("#admin-message");
 const eventsList = document.querySelector("#admin-events-list");
+
+const forgotPasswordButton =
+  document.querySelector("#forgot-password-button");
 
 let currentSession = null;
 let currentImageUrl = null;
@@ -37,16 +43,148 @@ function showMessage(text, isError = false) {
 }
 
 // ===================================
+// SHOW LOGIN SCREEN
+// ===================================
+
+function showLogin() {
+  loginSection.style.display = "block";
+  dashboardSection.style.display = "none";
+  resetSection.style.display = "none";
+}
+
+// ===================================
+// FORGOT PASSWORD
+// ===================================
+
+forgotPasswordButton.addEventListener("click", async () => {
+  const email = document
+    .querySelector("#admin-email")
+    .value.trim()
+    .toLowerCase();
+
+  if (email !== ADMIN_EMAIL) {
+    showMessage(
+      "Please enter the authorized admin email first.",
+      true
+    );
+    return;
+  }
+
+  showMessage("Sending password reset email...");
+
+  const { error } =
+    await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/admin.html`
+    });
+
+  if (error) {
+    showMessage(
+      "Could not send reset email: " + error.message,
+      true
+    );
+    return;
+  }
+
+  showMessage(
+    "Password reset email sent! Check your inbox."
+  );
+});
+
+// ===================================
+// PASSWORD RECOVERY EVENT
+// ===================================
+
+supabaseClient.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if (event === "PASSWORD_RECOVERY") {
+      currentSession = session;
+
+      loginSection.style.display = "none";
+      dashboardSection.style.display = "none";
+      resetSection.style.display = "block";
+
+      showMessage("Please create your new password.");
+    }
+  }
+);
+
+// ===================================
+// SAVE NEW PASSWORD
+// ===================================
+
+resetPasswordForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const newPassword =
+    document.querySelector("#new-password").value;
+
+  const confirmPassword =
+    document.querySelector("#confirm-password").value;
+
+  if (newPassword.length < 8) {
+    showMessage(
+      "Your password must be at least 8 characters.",
+      true
+    );
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    showMessage("Your passwords do not match.", true);
+    return;
+  }
+
+  showMessage("Updating your password...");
+
+  const { error } = await supabaseClient.auth.updateUser({
+    password: newPassword
+  });
+
+  if (error) {
+    showMessage(
+      "Could not update password: " + error.message,
+      true
+    );
+    return;
+  }
+
+  await supabaseClient.auth.signOut();
+
+  currentSession = null;
+
+  resetPasswordForm.reset();
+  loginForm.reset();
+
+  window.history.replaceState(
+    {},
+    document.title,
+    window.location.pathname + window.location.search
+  );
+
+  showLogin();
+
+  showMessage(
+    "Your password has been updated! You can now log in."
+  );
+});
+
+// ===================================
 // LOGIN
 // ===================================
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.querySelector("#admin-email").value.trim();
-  const password = document.querySelector("#admin-password").value;
+  const email = document
+    .querySelector("#admin-email")
+    .value.trim()
+    .toLowerCase();
 
-  if (email.toLowerCase() !== ADMIN_EMAIL) {
+  const password =
+    document.querySelector("#admin-password").value;
+
+  if (email !== ADMIN_EMAIL) {
     showMessage("This email is not authorized.", true);
     return;
   }
@@ -65,6 +203,7 @@ loginForm.addEventListener("submit", async (e) => {
   }
 
   currentSession = data.session;
+
   await checkAdminAccess();
 });
 
@@ -75,17 +214,26 @@ loginForm.addEventListener("submit", async (e) => {
 async function checkAdminAccess() {
   const { data } = await supabaseClient.auth.getUser();
 
-  if (!data.user ||
-      data.user.email?.toLowerCase() !== ADMIN_EMAIL) {
+  if (
+    !data.user ||
+    data.user.email?.toLowerCase() !== ADMIN_EMAIL
+  ) {
     await supabaseClient.auth.signOut();
+
     currentSession = null;
-    loginSection.style.display = "block";
-    dashboardSection.style.display = "none";
-    showMessage("You are not authorized to access this page.", true);
+
+    showLogin();
+
+    showMessage(
+      "You are not authorized to access this page.",
+      true
+    );
+
     return;
   }
 
   loginSection.style.display = "none";
+  resetSection.style.display = "none";
   dashboardSection.style.display = "block";
 
   showMessage("Welcome to the COMBAT HUNGER event dashboard!");
@@ -93,8 +241,16 @@ async function checkAdminAccess() {
   await loadAdminEvents();
 }
 
-// Check for an existing login when the page opens.
+// ===================================
+// CHECK EXISTING LOGIN
+// ===================================
+
 async function checkExistingLogin() {
+  // Do not interrupt an active password recovery.
+  if (window.location.hash.includes("type=recovery")) {
+    return;
+  }
+
   const { data } = await supabaseClient.auth.getSession();
 
   if (data.session) {
@@ -116,7 +272,8 @@ async function loadAdminEvents() {
     .order("event_date", { ascending: true });
 
   if (error) {
-    eventsList.textContent = "Could not load events: " + error.message;
+    eventsList.textContent =
+      "Could not load events: " + error.message;
     return;
   }
 
@@ -182,6 +339,7 @@ eventForm.addEventListener("submit", async (e) => {
     showMessage("Uploading photo...");
 
     const fileExtension = imageFile.name.split(".").pop();
+
     const fileName =
       `${crypto.randomUUID()}.${fileExtension}`;
 
@@ -192,7 +350,10 @@ eventForm.addEventListener("submit", async (e) => {
       });
 
     if (uploadError) {
-      showMessage("Photo upload failed: " + uploadError.message, true);
+      showMessage(
+        "Photo upload failed: " + uploadError.message,
+        true
+      );
       return;
     }
 
@@ -231,7 +392,10 @@ eventForm.addEventListener("submit", async (e) => {
   }
 
   if (result.error) {
-    showMessage("Could not save event: " + result.error.message, true);
+    showMessage(
+      "Could not save event: " + result.error.message,
+      true
+    );
     return;
   }
 
@@ -251,19 +415,25 @@ function editEvent(event) {
   document.querySelector("#event-date").value = event.event_date || "";
   document.querySelector("#event-time").value = event.event_time || "";
   document.querySelector("#event-location").value = event.location || "";
+
   document.querySelector("#event-description").value =
     event.description || "";
+
   document.querySelector("#event-registration").value =
     event.registration_url || "";
+
   document.querySelector("#event-published").checked =
     event.is_published;
 
   currentImageUrl = event.image_url || null;
 
   document.querySelector("#form-heading").textContent = "Edit Event";
+
   document.querySelector("#save-event-button").textContent =
     "Update Event";
-  document.querySelector("#cancel-edit").style.display = "inline-block";
+
+  document.querySelector("#cancel-edit").style.display =
+    "inline-block";
 
   showMessage("Editing: " + event.title);
 
@@ -287,11 +457,15 @@ async function deleteEvent(event) {
     .eq("id", event.id);
 
   if (error) {
-    showMessage("Could not delete event: " + error.message, true);
+    showMessage(
+      "Could not delete event: " + error.message,
+      true
+    );
     return;
   }
 
   showMessage("Event deleted.");
+
   await loadAdminEvents();
 }
 
@@ -303,11 +477,15 @@ function resetEventForm() {
   eventForm.reset();
 
   document.querySelector("#event-id").value = "";
+
   document.querySelector("#form-heading").textContent =
     "Add a New Event";
+
   document.querySelector("#save-event-button").textContent =
     "Save Event";
-  document.querySelector("#cancel-edit").style.display = "none";
+
+  document.querySelector("#cancel-edit").style.display =
+    "none";
 
   currentImageUrl = null;
 }
@@ -321,17 +499,19 @@ document.querySelector("#cancel-edit").addEventListener("click", () => {
 // LOG OUT
 // ===================================
 
-document.querySelector("#logout-button").addEventListener("click", async () => {
-  await supabaseClient.auth.signOut();
+document.querySelector("#logout-button").addEventListener(
+  "click",
+  async () => {
+    await supabaseClient.auth.signOut();
 
-  currentSession = null;
-  loginForm.reset();
+    currentSession = null;
+    loginForm.reset();
 
-  loginSection.style.display = "block";
-  dashboardSection.style.display = "none";
+    showLogin();
 
-  showMessage("You have been logged out.");
-});
+    showMessage("You have been logged out.");
+  }
+);
 
 // ===================================
 // START
