@@ -17,31 +17,35 @@
     </nav>
 
     <div class="banner donate-banner">
-      <img src="flag.webp" alt="COMBAT HUNGER — Feeding Hope">
+      <img
+        id="donate-banner-image"
+        src="flag.webp"
+        alt="COMBAT HUNGER — Feeding Hope"
+      >
     </div>
   </header>
 
-  <main class="donate-content">
+  <main class="donate-content" id="donate-page-content">
 
-    <h1>Give the Gift of Hope</h1>
+    <h1 id="donate-page-title">Give the Gift of Hope</h1>
 
-    <p class="donate-intro">
+    <p class="donate-intro" id="donate-intro">
       Every gift matters. Your generosity helps COMBAT HUNGER provide
       high-quality beef to veterans at Camp Hope in Houston who are working
       to heal from PTSD.
     </p>
 
-    <p>
-      We know giving an entire steer may not be possible for everyone.
-      Whether you give $25, $100, $500, or another amount, every contribution
-      helps support this mission.
-    </p>
+    <section class="donation-options" id="donate-blocks">
+      <p>
+        We know giving an entire steer may not be possible for everyone.
+        Whether you give $25, $100, $500, or another amount, every contribution
+        helps support this mission.
+      </p>
 
-    <p>
-      Thank you for helping us continue Fighting Hunger. Feeding Hope.
-    </p>
+      <p>
+        Thank you for helping us continue Fighting Hunger. Feeding Hope.
+      </p>
 
-    <section class="donation-options">
       <h2>Make a Difference</h2>
       <h3>Donate to Change Lives</h3>
 
@@ -49,7 +53,9 @@
         Your support helps provide hope to veterans and gives COMBAT HUNGER
         the ability to continue its mission.
       </p>
+    </section>
 
+    <section class="donation-options">
       <div class="zeffy-donation-form">
         <div data-zeffy-embed
              data-form-url="/embed/donation-form/donate-to-change-lives-27989"></div>
@@ -73,87 +79,95 @@
       </div>
     </section>
 
-    
-<section class="mail-donation">
-  <h2>Mail a Check</h2>
+    <section class="mail-donation" id="donate-mail-section">
+      <h2 id="donate-mail-heading">Mail a Check</h2>
 
-  <p>
-    Prefer to donate by mail? Checks can be made payable to
-    <strong>COMBAT HUNGER</strong> and mailed to:
-  </p>
+      <p id="donate-mail-message">
+        Prefer to donate by mail? Checks can be made payable to
+      </p>
 
-  <p class="mailing-address">
-    COMBAT HUNGER<br>
-    264 CR 230<br>
-    Goldthwaite, TX 76840
-  </p>
-</section>
+      <p class="mailing-address" id="donate-mail-address">
+        <strong id="donate-mail-recipient">COMBAT HUNGER</strong><br>
+        264 CR 230<br>
+        Goldthwaite, TX 76840
+      </p>
+    </section>
 
-<section class="steer-challenge">
-  <h2>The Steer Challenge</h2>
-
-  <img
-    src="combat-hunger-logo.png"
-    alt="COMBAT HUNGER Logo"
-    class="steer-challenge-logo"
-  >
-</section>
-
+    <section class="steer-challenge" id="donate-steer-section">
+      <img
+        id="steer-challenge-image"
+        src="steer-challenger.png"
+        alt="COMBAT HUNGER Steer Challenge flyer"
+        class="steer-challenge-logo"
+      >
+    </section>
 
   </main>
 
-  <div class="social-links">
-    <p>Follow COMBAT HUNGER:</p>
+  <p id="donate-unavailable" hidden>
+    This page is temporarily unavailable.
+  </p>
 
-    <a href="https://www.instagram.com/combat.hunger/"
-       target="_blank"
-       rel="noopener noreferrer">Instagram</a>
+  
+<div class="social-links" id="site-social-links">
+  <p>Follow COMBAT HUNGER:</p>
 
-    <a href="https://www.facebook.com/profile.php?id=61593611936450"
-       target="_blank"
-       rel="noopener noreferrer">Facebook</a>
-  </div>
+  <a href="https://www.instagram.com/combat.hunger/"
+     target="_blank"
+     rel="noopener noreferrer"
+     id="instagram-link">Instagram</a>
 
-  <footer class="site-footer">
-    <h2>COMBAT HUNGER</h2>
-    <p>To serve those who have served our nation.</p>
+  <a href="https://www.facebook.com/profile.php?id=61593611936450"
+     target="_blank"
+     rel="noopener noreferrer"
+     id="facebook-link">Facebook</a>
+</div>
 
-    <p>Mailing Address: 264 CR 230, Goldthwaite, Texas 76840</p>
+<footer class="site-footer" id="site-footer">
+  <h2 id="footer-name">COMBAT HUNGER</h2>
+  <p id="footer-tagline">To serve those who have served our nation.</p>
 
-    <p>
-      Email:
-      <a href="mailto:combathungr@gmail.com">combathungr@gmail.com</a>
-    </p>
+  <p id="footer-address">
+    Mailing Address: 264 CR 230, Goldthwaite, Texas 76840
+  </p>
 
-    <p>
-      Phone:
-      <a href="tel:8328895441">832-889-5441</a>
-    </p>
+  <p>
+    Email:
+    <a href="mailto:combathungr@gmail.com" id="footer-email">combathungr@gmail.com</a>
+  </p>
 
-    <p>
-      Website:
-      <a href="https://www.combathunger.org" target="_blank" rel="noopener noreferrer">
-        www.combathunger.org
-      </a>
-    </p>
+  <p>
+    Phone:
+    <a href="tel:8328895441" id="footer-phone">832-889-5441</a>
+  </p>
 
-    <p class="tax-info">
-      COMBAT HUNGER is a 501(c)(3) nonprofit organization.
-      Federal Tax ID: 41-4616764
-    </p>
+  <p>
+    Website:
+    <a href="https://www.combathunger.org" target="_blank" rel="noopener noreferrer" id="footer-website">
+      www.combathunger.org
+    </a>
+  </p>
 
-    <p class="tax-info">
-      $0.80 of every dollar donated goes to program services.
-    </p>
+  <p class="tax-info" id="footer-tax-info">
+    COMBAT HUNGER is a 501(c)(3) nonprofit organization.
+    Federal Tax ID: 41-4616764
+  </p>
 
-    <p class="copyright">
-      © 2026 COMBAT HUNGER. All rights reserved.
-    </p>
-  </footer>
+  <p class="tax-info" id="footer-program-info">
+    $0.80 of every dollar donated goes to program services.
+  </p>
 
+  <p class="copyright" id="footer-copyright">
+    © 2026 COMBAT HUNGER. All rights reserved.
+  </p>
+</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 

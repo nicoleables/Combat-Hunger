@@ -412,7 +412,7 @@ body {
 /* Steer Challenge logo - Donate page only */
 .steer-challenge-logo {
   display: block;
-  width: 220px;
+  width: 450px;
   max-width: 80%;
   height: auto;
   margin: 20px auto;
@@ -432,4 +432,61 @@ body {
 
 .donate-content .steer-challenge-logo {
   margin: 20px auto;
+}
+
+
+/* Dynamic Events Page Updates */
+
+.event-year {
+  color: #3e3332;
+  font-size: 22px;
+  font-weight: bold;
+  margin: -10px 0 35px;
+}
+
+.event-image {
+  display: block;
+  width: 100%;
+  max-width: 550px;
+  max-height: 350px;
+  object-fit: contain;
+  margin: 25px auto;
+}
+
+.event-location {
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.event-card .donate-button {
+  margin: 12px 6px 0;
+}
+
+@media (max-width: 600px) {
+  .event-year {
+    font-size: 19px;
+  }
+
+  .event-card .donate-button {
+    display: block;
+    margin: 12px auto 0;
+    max-width: 100%;
+  }
+}
+
+/* Steer Challenge image - Events page only */
+.events-steer-section {
+  max-width: 750px;
+  margin: 35px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.events-steer-section img {
+  display: block;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
 }

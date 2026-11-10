@@ -27,87 +27,74 @@
     <h1>Upcoming Events</h1>
 
     <div id="events-list">
-
-      <!-- Existing event remains visible until events are added to Supabase -->
-      <section class="event-card">
-        <p class="event-label">SAVE THE DATE</p>
-        <p class="event-date">11:11</p>
-        <p class="event-day">Thursday, November 11th, 2027</p>
-
-        <p class="event-presenter">COMBAT HUNGER Presents its Inaugural</p>
-        <h2>Vets and Voices</h2>
-
-        <p class="event-description">
-          An upscale evening of recognition and live entertainment!
-        </p>
-
-        <p class="event-underwriting">
-          Underwriting Opportunities Available
-        </p>
-
-        <p class="event-details">
-          The details are coming...
-        </p>
-
-        <a href="donate.html" class="donate-button">
-          Can't Attend? Make a Donation Instead
-        </a>
-      </section>
-
+      <p>Loading events...</p>
     </div>
   </main>
 
-  <div class="social-links">
-    <p>Follow COMBAT HUNGER:</p>
+  <section id="events-steer-section" class="events-steer-section" hidden>
+  <img
+    id="events-steer-image"
+    src=""
+    alt="COMBAT HUNGER Steer Challenge"
+  >
+</section>
+  
+<div class="social-links" id="site-social-links">
+  <p>Follow COMBAT HUNGER:</p>
 
-    <a href="https://www.instagram.com/combat.hunger/"
-       target="_blank"
-       rel="noopener noreferrer">Instagram</a>
-    <a href="https://www.facebook.com/profile.php?id=61593611936450"
-       target="_blank"
-       rel="noopener noreferrer">Facebook</a>
-  </div>
+  <a href="https://www.instagram.com/combat.hunger/"
+     target="_blank"
+     rel="noopener noreferrer"
+     id="instagram-link">Instagram</a>
 
-  <footer class="site-footer">
-    <h2>COMBAT HUNGER</h2>
-    <p>To serve those who have served our nation.</p>
+  <a href="https://www.facebook.com/profile.php?id=61593611936450"
+     target="_blank"
+     rel="noopener noreferrer"
+     id="facebook-link">Facebook</a>
+</div>
 
-    <p>
-      Mailing Address: 264 CR 230, Goldthwaite, Texas 76840
-    </p>
+<footer class="site-footer" id="site-footer">
+  <h2 id="footer-name">COMBAT HUNGER</h2>
+  <p id="footer-tagline">To serve those who have served our nation.</p>
 
-    <p>
-      Email:
-      <a href="mailto:combathungr@gmail.com">combathungr@gmail.com</a>
-    </p>
+  <p id="footer-address">
+    Mailing Address: 264 CR 230, Goldthwaite, Texas 76840
+  </p>
 
-    <p>
-      Phone:
-      <a href="tel:8328895441">832-889-5441</a>
-    </p>
+  <p>
+    Email:
+    <a href="mailto:combathungr@gmail.com" id="footer-email">combathungr@gmail.com</a>
+  </p>
 
-    <p>
-      Website:
-      <a href="https://www.combathunger.org" target="_blank" rel="noopener noreferrer">
-        www.combathunger.org
-      </a>
-    </p>
+  <p>
+    Phone:
+    <a href="tel:8328895441" id="footer-phone">832-889-5441</a>
+  </p>
 
-    <p class="tax-info">
-      COMBAT HUNGER is a 501(c)(3) nonprofit organization.
-      Federal Tax ID: 41-4616764
-    </p>
+  <p>
+    Website:
+    <a href="https://www.combathunger.org" target="_blank" rel="noopener noreferrer" id="footer-website">
+      www.combathunger.org
+    </a>
+  </p>
 
-    <p class="tax-info">
-      $0.80 of every dollar donated goes to program services.
-    </p>
+  <p class="tax-info" id="footer-tax-info">
+    COMBAT HUNGER is a 501(c)(3) nonprofit organization.
+    Federal Tax ID: 41-4616764
+  </p>
 
-    <p class="copyright">
-      © 2026 COMBAT HUNGER. All rights reserved.
-    </p>
-  </footer>
+  <p class="tax-info" id="footer-program-info">
+    $0.80 of every dollar donated goes to program services.
+  </p>
+
+  <p class="copyright" id="footer-copyright">
+    © 2026 COMBAT HUNGER. All rights reserved.
+  </p>
+</footer>
+
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>
+

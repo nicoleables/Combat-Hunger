@@ -1,16 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Management | COMBAT HUNGER</title>
-
+  <title>COMBAT HUNGER Administration</title>
   <link rel="stylesheet" href="style.css">
 
   <style>
     .admin-container {
-      max-width: 900px;
-      margin: 50px auto;
+      max-width: 1000px;
+      margin: 40px auto;
       padding: 25px;
     }
 
@@ -27,8 +27,9 @@
       margin: 25px 0;
     }
 
-    .admin-panel input,
-    .admin-panel textarea {
+    .admin-panel input:not([type="checkbox"]),
+    .admin-panel textarea,
+    .admin-panel select {
       display: block;
       width: 100%;
       padding: 12px;
@@ -38,7 +39,9 @@
     }
 
     .admin-panel label {
+      display: block;
       font-weight: bold;
+      margin-top: 12px;
     }
 
     .admin-panel button {
@@ -47,7 +50,8 @@
       cursor: pointer;
     }
 
-    .admin-event {
+    .admin-event,
+    .content-block {
       border: 1px solid #ccc;
       padding: 15px;
       margin: 15px 0;
@@ -73,6 +77,91 @@
       text-decoration: underline;
       cursor: pointer;
     }
+
+    .admin-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 25px 0;
+    }
+
+    .admin-tabs button,
+    .editor-actions button {
+      border: none;
+      border-radius: 4px;
+      background: #3e3332;
+      color: white;
+    }
+
+    .admin-tabs button.active {
+      background: #ed493a;
+    }
+
+    .admin-section {
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+    }
+
+    .content-block textarea {
+      min-height: 90px;
+    }
+
+    .content-block select {
+      max-width: 250px;
+    }
+
+    .editor-note {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .publish-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .publish-row label {
+      display: inline;
+      margin: 0;
+    }
+
+    .publish-row input {
+      width: auto;
+      margin: 0;
+    }
+
+    .admin-preview-image {
+      display: block;
+      max-width: 250px;
+      max-height: 150px;
+      object-fit: contain;
+      margin: 10px 0;
+    }
+
+    .danger-button {
+      background: #a52a2a !important;
+      color: white;
+    }
+
+    .admin-divider {
+      border: 0;
+      border-top: 1px solid #ddd;
+      margin: 25px 0;
+    }
   </style>
 </head>
 
@@ -86,18 +175,16 @@
     </nav>
 
     <div class="banner">
-      <img
-        src="combat-hunger-banner.png"
-        alt="COMBAT HUNGER — Feeding Hope"
-      >
+      <img src="combat-hunger-banner.png"
+           alt="COMBAT HUNGER — Feeding Hope">
     </div>
   </header>
 
   <main class="admin-container">
 
-    <h1>Event Management</h1>
+    <h1>COMBAT HUNGER Administration</h1>
     <p style="text-align:center;">
-      COMBAT HUNGER Administration
+      Manage website events and page content.
     </p>
 
     <p id="admin-message"></p>
@@ -108,29 +195,19 @@
 
       <form id="login-form">
         <label for="admin-email">Email</label>
-        <input
-          type="email"
-          id="admin-email"
-          placeholder="Enter your email"
-          required
-        >
+        <input type="email" id="admin-email"
+               placeholder="Enter your email" required>
 
         <label for="admin-password">Password</label>
-        <input
-          type="password"
-          id="admin-password"
-          placeholder="Enter your password"
-          required
-        >
+        <input type="password" id="admin-password"
+               placeholder="Enter your password" required>
 
         <button type="submit">Log In</button>
       </form>
 
-      <button
-        type="button"
-        id="forgot-password-button"
-        class="forgot-password"
-      >
+      <button type="button"
+              id="forgot-password-button"
+              class="forgot-password">
         Forgot Password?
       </button>
     </section>
@@ -145,22 +222,12 @@
 
       <form id="reset-password-form">
         <label for="new-password">New Password</label>
-        <input
-          type="password"
-          id="new-password"
-          placeholder="Enter a new password"
-          minlength="8"
-          required
-        >
+        <input type="password" id="new-password"
+               minlength="8" required>
 
         <label for="confirm-password">Confirm New Password</label>
-        <input
-          type="password"
-          id="confirm-password"
-          placeholder="Confirm your new password"
-          minlength="8"
-          required
-        >
+        <input type="password" id="confirm-password"
+               minlength="8" required>
 
         <button type="submit">Save New Password</button>
       </form>
@@ -169,58 +236,360 @@
     <!-- DASHBOARD -->
     <section id="admin-dashboard">
 
-      <div class="admin-panel">
-        <h2 id="form-heading">Add a New Event</h2>
+      <nav class="admin-tabs">
+        <button type="button" class="active" data-tab="events-editor">
+          Events
+        </button>
+        <button type="button" data-tab="about-editor">
+          About Us
+        </button>
+        <button type="button" data-tab="donate-editor">
+          Donate
+        </button>
+        <button type="button" data-tab="settings-editor">
+          Footer & Social Links
+        </button>
+      </nav>
 
-        <form id="event-form">
+      <!-- EVENTS -->
+      <section id="events-editor" class="admin-section active">
 
-          <input type="hidden" id="event-id">
+        <div class="admin-panel">
+          <h2 id="form-heading">Add a New Event</h2>
 
-          <label for="event-title">Event Name</label>
-          <input type="text" id="event-title" required>
+          <p class="editor-note">
+            Fill in the event details below. These fields control how
+            the event appears on the public Events page.
+          </p>
 
-          <label for="event-date">Event Date</label>
-          <input type="date" id="event-date">
+          <form id="event-form">
+            <input type="hidden" id="event-id">
 
-          <label for="event-time">Event Time</label>
-          <input type="text" id="event-time">
+            <label for="event-label">Event Label</label>
+            <input type="text" id="event-label"
+                   placeholder="Example: SAVE THE DATE">
 
-          <label for="event-location">Location</label>
-          <input type="text" id="event-location">
+            <label for="event-time">Event Time</label>
+            <input type="text" id="event-time"
+                   placeholder="Example: 11:11">
 
-          <label for="event-description">Event Description</label>
-          <textarea id="event-description" rows="5"></textarea>
+            <label for="event-date">Event Date</label>
+            <input type="date" id="event-date">
 
-          <label for="event-image">Event Photo</label>
-          <input type="file" id="event-image" accept="image/*">
+            <label for="event-organization">Organization Name</label>
+            <input type="text" id="event-organization"
+                   placeholder="Example: COMBAT HUNGER">
 
-          <label for="event-registration">Registration Link (optional)</label>
-          <input type="url" id="event-registration">
+            <label for="event-introduction">Event Introduction</label>
+            <input type="text" id="event-introduction"
+                   placeholder="Example: Presents its Inaugural">
 
-          <label>
-            <input type="checkbox" id="event-published" checked>
-            Publish this event on the website
-          </label>
+            <label for="event-title">Event Name</label>
+            <input type="text" id="event-title"
+                   placeholder="Example: Vets and Voices" required>
 
-          <button type="submit" id="save-event-button">
-            Save Event
-          </button>
+            <label for="event-description">Event Description</label>
+            <textarea id="event-description" rows="3"
+                      placeholder="Example: An upscale evening of recognition and live entertainment!"></textarea>
 
-          <button type="button" id="cancel-edit" style="display:none;">
-            Cancel
-          </button>
+            <label for="event-underwriting">Underwriting Message</label>
+            <input type="text" id="event-underwriting"
+                   placeholder="Example: Underwriting Opportunities Available">
 
-        </form>
-      </div>
+            <label for="event-details">Additional Details</label>
+            <textarea id="event-details" rows="3"
+                      placeholder="Example: The details are coming..."></textarea>
 
-      <div class="admin-panel">
-        <h2>Manage Events</h2>
-        <div id="admin-events-list">
-          Loading events...
+            <label for="event-location">Location (optional)</label>
+            <input type="text" id="event-location">
+
+            <hr class="admin-divider">
+
+            <label for="event-image">Event Photo (optional)</label>
+            <input type="file" id="event-image" accept="image/*">
+
+            <label for="event-registration">
+              Registration Link (optional)
+            </label>
+            <input type="url" id="event-registration">
+
+            <div class="publish-row">
+              <input type="checkbox" id="event-published" checked>
+              <label for="event-published">
+                Publish this event on the website
+              </label>
+            </div>
+
+            <button type="submit" id="save-event-button">
+              Save Event
+            </button>
+
+            <button type="button" id="cancel-edit"
+                    style="display:none;">
+              Cancel
+            </button>
+          </form>
         </div>
-      </div>
 
-      <div style="text-align:center;">
+        <div class="admin-panel">
+          <h2>Manage Events</h2>
+          <div id="admin-events-list">Loading events...</div>
+        </div>
+
+
+        <div class="admin-panel">
+          <h2>Steer Challenge Image</h2>
+
+          <p class="editor-note">
+            Upload or replace the Steer Challenge image displayed
+            on the public Events page.
+          </p>
+
+          <label for="events-steer-image-url">Image URL</label>
+          <input type="url" id="events-steer-image-url">
+
+          <label for="events-steer-image-file">Upload Image</label>
+          <input type="file" id="events-steer-image-file" accept="image/*">
+
+          <img id="events-steer-preview"
+               class="admin-preview-image"
+               alt="Steer Challenge image preview"
+               hidden>
+
+          <div class="editor-actions">
+            <button type="button" id="save-events-steer">
+              Save Steer Challenge Image
+            </button>
+          </div>
+        </div>
+
+
+      </section>
+
+      <!-- ABOUT US EDITOR -->
+      <section id="about-editor" class="admin-section">
+
+        <div class="admin-panel">
+          <h2>Edit About Us Page</h2>
+
+          <p class="editor-note">
+            Update the banner, headings, paragraphs, and quote.
+            You can add, remove, and rearrange content sections.
+          </p>
+
+          <label for="about-page-title">Page Title</label>
+          <input type="text" id="about-page-title">
+
+          <label for="about-banner-url">Banner Image URL</label>
+          <input type="url" id="about-banner-url">
+
+          <label for="about-banner-file">Upload a New Banner Image</label>
+          <input type="file" id="about-banner-file" accept="image/*">
+
+          <img id="about-banner-preview"
+               class="admin-preview-image"
+               alt="About page banner preview"
+               hidden>
+
+          <hr class="admin-divider">
+
+          <h3>Page Content</h3>
+          <div id="about-blocks"></div>
+
+          <div class="editor-actions">
+            <button type="button" id="add-about-heading">
+              Add Heading
+            </button>
+            <button type="button" id="add-about-paragraph">
+              Add Paragraph
+            </button>
+            <button type="button" id="add-about-quote">
+              Add Quote
+            </button>
+          </div>
+
+          <div class="editor-actions">
+            <button type="button" id="save-about">
+              Save About Us Page
+            </button>
+          </div>
+
+          <div class="publish-row">
+            <input type="checkbox" id="about-published">
+            <label for="about-published">
+              Make this page visible to the public
+            </label>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- DONATE EDITOR -->
+      <section id="donate-editor" class="admin-section">
+
+        <div class="admin-panel">
+          <h2>Edit Donate Page</h2>
+
+          <p class="editor-note">
+            Update the donation page wording, images, and sections.
+            The Zeffy donation form will remain connected.
+          </p>
+
+          <label for="donate-page-title">Main Heading</label>
+          <input type="text" id="donate-page-title">
+
+          <label for="donate-banner-url">Banner Image URL</label>
+          <input type="url" id="donate-banner-url">
+
+          <label for="donate-banner-file">Upload a New Banner Image</label>
+          <input type="file" id="donate-banner-file" accept="image/*">
+
+          <img id="donate-banner-preview"
+               class="admin-preview-image"
+               alt="Donate page banner preview"
+               hidden>
+
+          <label for="donate-intro">Introductory Message</label>
+          <textarea id="donate-intro" rows="4"></textarea>
+
+          <hr class="admin-divider">
+
+          <h3>Additional Donation Information</h3>
+          <div id="donate-blocks"></div>
+
+          <div class="editor-actions">
+            <button type="button" id="add-donate-heading">
+              Add Heading
+            </button>
+            <button type="button" id="add-donate-paragraph">
+              Add Paragraph
+            </button>
+          </div>
+
+          <hr class="admin-divider">
+
+          <h3>Mail a Check Section</h3>
+
+          <label for="donate-mail-heading">Section Heading</label>
+          <input type="text" id="donate-mail-heading">
+
+          <label for="donate-mail-message">Message</label>
+          <textarea id="donate-mail-message" rows="3"></textarea>
+
+          <label for="donate-mail-recipient">Payable To</label>
+          <input type="text" id="donate-mail-recipient">
+
+          <label for="donate-mail-address">Mailing Address</label>
+          <textarea id="donate-mail-address" rows="3"></textarea>
+
+          <hr class="admin-divider">
+
+          <h3>Steer Challenge Section</h3>
+
+          <label for="donate-steer-heading">Section Heading</label>
+          <input type="text" id="donate-steer-heading">
+
+          <label for="donate-steer-image-url">Logo Image URL</label>
+          <input type="url" id="donate-steer-image-url">
+
+          <label for="donate-steer-image-file">Upload a New Logo</label>
+          <input type="file" id="donate-steer-image-file"
+                 accept="image/*">
+
+          <img id="donate-steer-preview"
+               class="admin-preview-image"
+               alt="Steer Challenge logo preview"
+               hidden>
+
+          <div class="editor-actions">
+            <button type="button" id="save-donate">
+              Save Donate Page
+            </button>
+          </div>
+
+          <div class="publish-row">
+            <input type="checkbox" id="donate-published">
+            <label for="donate-published">
+              Make this page visible to the public
+            </label>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- SHARED FOOTER AND SOCIAL LINKS -->
+      <section id="settings-editor" class="admin-section">
+
+        <div class="admin-panel">
+          <h2>Footer & Social Links</h2>
+
+          <p class="editor-note">
+            These details appear on both the About Us and Donate pages.
+            Update them here once.
+          </p>
+
+          <label for="settings-social-heading">
+            Social Links Heading
+          </label>
+          <input type="text" id="settings-social-heading">
+
+          <label for="settings-instagram">Instagram URL</label>
+          <input type="url" id="settings-instagram">
+
+          <label for="settings-facebook">Facebook URL</label>
+          <input type="url" id="settings-facebook">
+
+          <hr class="admin-divider">
+
+          <label for="settings-org-name">Organization Name</label>
+          <input type="text" id="settings-org-name">
+
+          <label for="settings-tagline">Tagline</label>
+          <input type="text" id="settings-tagline">
+
+          <label for="settings-address">Mailing Address</label>
+          <input type="text" id="settings-address">
+
+          <label for="settings-email">Email</label>
+          <input type="email" id="settings-email">
+
+          <label for="settings-phone">Phone</label>
+          <input type="text" id="settings-phone">
+
+          <label for="settings-website">Website</label>
+          <input type="url" id="settings-website">
+
+          <label for="settings-tax-status">Tax Information</label>
+          <textarea id="settings-tax-status" rows="2"></textarea>
+
+          <label for="settings-tax-id">Federal Tax ID</label>
+          <input type="text" id="settings-tax-id">
+
+          <label for="settings-donation-statement">
+            Donation Statement
+          </label>
+          <textarea id="settings-donation-statement" rows="2"></textarea>
+
+          <label for="settings-copyright">Copyright Text</label>
+          <input type="text" id="settings-copyright">
+
+          <div class="editor-actions">
+            <button type="button" id="save-settings">
+              Save Footer & Social Links
+            </button>
+          </div>
+
+          <div class="publish-row">
+            <input type="checkbox" id="settings-published">
+            <label for="settings-published">
+              Make these details visible to the public
+            </label>
+          </div>
+        </div>
+
+      </section>
+
+      <div style="text-align:center; margin:30px 0;">
         <button type="button" id="logout-button">
           Log Out
         </button>
@@ -243,3 +612,4 @@
 
 </body>
 </html>
+
